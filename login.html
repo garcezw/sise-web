@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISE - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos para centralizar a tela de login */
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--cor-fundo);
+        }
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card login-card">
+        <div class="card-body p-4">
+            <div class="text-center mb-4">
+                <img src="icons/logo.jpg" alt="Logo SISE" width="80">
+                <h1 class="h3 mt-2 mb-3">Bem-vindo ao SISE</h1>
+            </div>
+            
+            <form id="login-form">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="username" placeholder="Usuário" required>
+                    <label for="username">Nome de Usuário</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" placeholder="Senha" required>
+                    <label for="password">Senha</label>
+                </div>
+                
+                <div id="error-message" class="alert alert-danger mt-3" style="display: none;"></div>
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const errorMessageDiv = document.getElementById('error-message');
+        const apiUrl = 'http://127.0.0.1:8000';
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Impede o recarregamento da página
+            errorMessageDiv.style.display = 'none'; // Esconde erros antigos
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // O endpoint de token do FastAPI com OAuth2PasswordRequestForm espera os dados
+            // como FormData, não como JSON.
+            const formData = new FormData();
+            formData.append('username', username);
+            formData.append('password', password);
+
+            try {
+                const response = await fetch(`${apiUrl}/api/token`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || 'Falha no login.');
+                }
+
+                // Se o login for bem-sucedido:
+                const data = await response.json();
+                
+                // 1. Guarda o token de acesso no armazenamento local do navegador.
+                // Isto faz com que o usuário continue logado mesmo que feche a aba.
+                localStorage.setItem('accessToken', data.access_token);
+                
+                // 2. Redireciona para a página principal da aplicação.
+                window.location.href = 'app.html';
+
+            } catch (error) {
+                // Se houver um erro, mostra a mensagem na tela.
+                errorMessageDiv.textContent = error.message;
+                errorMessageDiv.style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>

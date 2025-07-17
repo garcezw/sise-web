@@ -1,0 +1,74 @@
+/* style.css */
+
+/* Importa fontes profissionais do Google Fonts. Faremos o link no HTML. */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600;800&display=swap');
+
+/*
+  O seletor :root representa o elemento raiz do documento (o <html>).
+  É o melhor local para declarar as nossas variáveis CSS globais.
+*/
+:root {
+    /* 1. PALETA DE CORES */
+    --cor-primaria: #005A9C;         /* Um azul corporativo forte */
+    --cor-primaria-hover: #004578;   /* Um tom mais escuro para o hover do mouse */
+    --cor-secundaria: #6c757d;      /* Cinza padrão para texto secundário */
+    --cor-sucesso: #198754;         /* Verde para ações de sucesso */
+    --cor-perigo: #dc3545;          /* Vermelho para exclusão e alertas */
+    --cor-fundo: #f4f7f6;           /* Um cinza muito claro para o fundo da página */
+    --cor-surface: #ffffff;        /* Branco para superfícies como cards e formulários */
+    --cor-texto: #212529;           /* Preto suave para o texto principal */
+    --cor-borda: #dee2e6;          /* Cinza claro para bordas */
+
+    /* 2. TIPOGRAFIA (FONTES) */
+    --fonte-principal: 'Roboto', sans-serif;
+    --fonte-titulos: 'Montserrat', sans-serif;
+
+    /* 3. OUTRAS PROPRIEDADES */
+    --raio-borda: 0.375rem; /* Raio dos cantos para botões e cards (border-radius) */
+    --sombra-padrao: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* --- APLICAÇÃO DOS ESTILOS GLOBAIS --- */
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: var(--fonte-principal);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fonte-titulos);
+    color: var(--cor-primaria);
+}
+
+/* --- CUSTOMIZAÇÃO DOS COMPONENTES (SOBRESCREVENDO O BOOTSTRAP) --- */
+
+/* Botão Primário (o mais importante) */
+.btn-primary {
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s ease-in-out; /* Animação suave */
+}
+
+.btn-primary:hover {
+    background-color: var(--cor-primaria-hover);
+    border-color: var(--cor-primaria-hover);
+}
+
+/* Customização dos Cards */
+.card {
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-borda);
+    box-shadow: var(--sombra-padrao);
+}
+
+.card-header {
+    background-color: var(--cor-fundo);
+    border-bottom: 1px solid var(--cor-borda);
+    font-family: var(--fonte-titulos);
+    font-weight: 600;
+    color: var(--cor-primaria);
+}
