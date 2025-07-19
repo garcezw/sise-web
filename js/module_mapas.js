@@ -58,10 +58,7 @@ function displayMapaPreview() {
     const previewContainer = document.getElementById('mapa-preview-container');
 
     if (mapaUrl) {
-        // A URL salva no banco é relativa (ex: 'static/mapas/area_1_mapa.png')
-        // A apiUrl nos dá a base (ex: 'http://127.0.0.1:8000')
-        // Juntamos as duas para ter o caminho completo
-        previewContainer.innerHTML = `<img src="${apiUrl}/${mapaUrl}" class="img-fluid rounded" alt="Preview do Mapa">`;
+         previewContainer.innerHTML = `<img src="${apiUrl}/${mapaUrl}" class="img-fluid rounded" alt="Preview do Mapa">`;
     } else {
         previewContainer.innerHTML = '<p class="text-muted">Esta área ainda não possui um mapa.</p>';
     }

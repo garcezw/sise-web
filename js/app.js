@@ -22,7 +22,7 @@ import { exibirRelatorioServico } from './module_servico_relatorio.js';
 // =================================================================
 
 export const token = localStorage.getItem('accessToken');
-export const apiUrl = 'http://127.0.0.1:8000';
+export const apiUrl = 'https://sise-api.onrender.com';
 export let currentUser = null;
 export let areasDisponiveis = [];
 
